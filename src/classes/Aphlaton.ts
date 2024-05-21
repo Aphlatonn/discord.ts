@@ -1,11 +1,12 @@
 import { Client, Partials, Collection, GatewayIntentBits, ActivityType } from "discord.js";
 import config from "../config.js";
 import loadEvents from "../handlers/events.js";
+import deployCommands from "../handlers/deploy.js";
 import loadCommand from "../handlers/commands.js";
 import loadComponent from "../handlers/components.js";
 import { AphlatonMessageCommandBuilder, AphlatonSlashCommandBuilder } from "./Commands.js";
 import { AphlatonComponentBuilder } from "./Components.js";
-import(`../database/sqlite.js`)
+import(`../database/sqlite/sqlite.js`)
 
 export default class Aphlaton extends Client {
     collection = {
@@ -67,11 +68,13 @@ export default class Aphlaton extends Client {
         });
     }
 
-    start(token = config.client.token) {
+    async start(token = config.client.token) {
         loadEvents(this);
         loadCommand(this);
         loadComponent(this);
-        this.login(token);
+        await this.login(token);
+        deployCommands(this)
+        console.log(this.applicationcommandsArray)
     };
 }
 
