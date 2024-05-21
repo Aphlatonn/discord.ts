@@ -1,7 +1,7 @@
 export default {
     client: {
         token: "your application token",
-        id: "your client id",
+        id: "1213251937714311289",
     },
 
     handler: {
