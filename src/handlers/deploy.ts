@@ -5,7 +5,7 @@ import Aphlaton from "../classes/Aphlaton.js";
 
 export default async (client: Aphlaton) => {
     // create instance from the REST class
-    const rest = new REST({ version: "10" }).setToken(config.client.token);
+    const rest = new REST({ version: "10" }).setToken(process.env.CLIENT_TOKEN || config.client.token);
 
     // send a log message to the console
     log("Loading *application* commands... (it might take minutes!)", "info");
