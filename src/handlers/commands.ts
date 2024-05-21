@@ -2,6 +2,7 @@ import { readdirSync } from 'fs';
 import Aphlaton from '../classes/Aphlaton.js';
 import { AphlatonSlashCommandBuilder, AphlatonMessageCommandBuilder } from '../classes/Commands.js';
 import { log } from '../functions.js';
+import { GuildForumThreadManager, GuildMemberFlagsBitField } from 'discord.js';
 
 export default async (client: Aphlaton) => {
     for (const type of readdirSync("./dist/commands/")) {
