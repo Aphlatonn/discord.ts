@@ -64,6 +64,11 @@ export class AphlatonMessageCommandBuilder {
         return this;
     }
 
+    setNSFW(bool: boolean): this {
+        this.nsfw = bool;
+        return this;
+    }
+
     setRun(run: MRunFunction): this {
         this.run = run;
         return this;
@@ -76,6 +81,7 @@ export class AphlatonSlashCommandBuilder {
     category: string = '';
     botPerms: PermissionsString[] = [];
     userPerms: PermissionsString[] = [];
+    nsfw: boolean = false;
     run: IRunFunction = async () => { };
 
     setCommand(command: SlashCommandBuilder): this {
@@ -100,6 +106,11 @@ export class AphlatonSlashCommandBuilder {
 
     setUserPerms(userPerms: PermissionsString[]): this {
         this.userPerms = userPerms;
+        return this;
+    }
+
+    setNSFW(bool: boolean): this {
+        this.nsfw = bool;
         return this;
     }
 
