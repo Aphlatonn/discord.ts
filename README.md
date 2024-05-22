@@ -1,7 +1,10 @@
 # discord.ts
 discord.ts, is a discord js v14 template.
 
-# Commands, events, and components objects structure
+# Commands, events, context menus and components objects structure
+
+## Commands:
+
 ### Prefix commands:
 ```ts
 import { AphlatonMessageCommandBuilder } from "../../../classes/Commands.js";
@@ -23,7 +26,7 @@ export default new AphlatonMessageCommandBuilder()
 ```
 
 ### non Prefix commands:
-- (the same as prefix commands in structure but it need to be in src/commands/nonprefix/${folder}/commands.ts)
+- (the same as prefix commands in structure but it need to be in `src/commands/nonprefix/${folder}/commands.ts`)
 
 ```ts
 import { AphlatonMessageCommandBuilder } from "../../../classes/Commands.js";
@@ -64,4 +67,54 @@ export default new AphlatonSlashCommandBuilder()
     .setRun(async (client, interaction) => {
         interaction.reply("hello world");
     })
+```
+
+## Context menu commands:
+
+### User context menu commands:
+
+```ts
+import { ContextMenuCommandBuilder } from "discord.js";
+import { AphlatonContextMenuBuilder } from "../../../classes/ContextMenus.js";
+
+export default new AphlatonContextMenuBuilder()
+    .setCommand(new ContextMenuCommandBuilder()
+        .setName('test')
+    )
+    .setNSFW(false)
+    .setCooldown(5000)
+    .setBotPerms([`Administrator`])
+    .setUserPerms([`SendMessages`, `ManageRoles`])
+    .setRun(async (client, interaction) => {
+        interaction.reply(`hello world`)
+    })
+```
+
+### Message context menu commands:
+- (the same as user context menu in structure but it need to be in `src/context_menus/message/${folder}/commands.ts`)
+
+```ts
+import { ContextMenuCommandBuilder } from "discord.js";
+import { AphlatonContextMenuBuilder } from "../../../classes/ContextMenus.js";
+
+export default new AphlatonContextMenuBuilder()
+    .setCommand(new ContextMenuCommandBuilder()
+        .setName('test')
+    )
+    .setNSFW(false)
+    .setCooldown(5000)
+    .setBotPerms([`Administrator`])
+    .setUserPerms([`SendMessages`, `ManageRoles`])
+    .setRun(async (client, interaction) => {
+        interaction.reply(`hello world`)
+    })
+```
+
+- `NOTE:` in the context menus you dont need to set the context menu type:
+```ts
+import { ContextMenuCommandBuilder } from "discord.js";
+.setCommand(new ContextMenuCommandBuilder()
+    .setName('test')
+    .setType(2 or 3) // 2 for user context menu and 3 for message context menu (this .setType() method the handler set it automatically )
+)
 ```
