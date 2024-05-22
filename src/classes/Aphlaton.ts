@@ -4,6 +4,7 @@ import loadEvents from "../handlers/events.js";
 import deployCommands from "../handlers/deploy.js";
 import loadCommand from "../handlers/commands.js";
 import loadComponent from "../handlers/components.js";
+import loadContextMenus from "../handlers/ContextMenus.js";
 import { AphlatonMessageCommandBuilder, AphlatonSlashCommandBuilder } from "./Commands.js";
 import { AphlatonComponentBuilder } from "./Components.js";
 import { AphlatonContextMenuBuilder } from "./ContextMenus.js";
@@ -79,8 +80,9 @@ export default class Aphlaton extends Client {
         loadEvents(this);
         loadCommand(this);
         loadComponent(this);
+        loadContextMenus(this);
         await this.login(token);
-        deployCommands(this)
+        deployCommands(this);
     };
 }
 
