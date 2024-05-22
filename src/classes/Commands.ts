@@ -119,3 +119,12 @@ export class AphlatonSlashCommandBuilder {
         return this;
     }
 }
+
+/**
+ * Project: Template
+ * Author: @Aphlaton
+ * this code is under the MIT license.
+ * For more information, contact us at
+ * https://discord.gg/quantom
+ */
+

@@ -74,17 +74,14 @@ export default class Aphlaton extends Client {
         loadComponent(this);
         await this.login(token);
         deployCommands(this)
-        console.log(this.applicationcommandsArray)
     };
 }
 
 /**
  * Project: Template
  * Author: @Aphlaton
- * Company: @quantom
- * Copyright (c) 2024. All rights reserved.
- * This code is the property of Coder and may not be reproduced or
- * modified without permission. For more information, contact us at
+ * this code is under the MIT license.
+ * For more information, contact us at
  * https://discord.gg/quantom
  */
 
