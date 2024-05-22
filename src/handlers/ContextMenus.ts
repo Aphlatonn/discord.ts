@@ -5,7 +5,7 @@ import { AphlatonContextMenuBuilder } from '../classes/ContextMenus.js';
 
 export default async (client: Aphlaton) => {
     for (const type of readdirSync("./dist/context_menus/")) {
-        for (const dir of readdirSync("./dist/commands/" + type)) {
+        for (const dir of readdirSync("./dist/context_menus/" + type)) {
             for (const file of readdirSync("./dist/context_menus/" + type + "/" + dir,).filter((f) => f.endsWith(".js"))) {
                 const module = await import(
                     "../context_menus/" + type + "/" + dir + "/" + file
