@@ -1,3 +1,4 @@
+
 export default {
     client: {
         token: "your application token",
@@ -13,6 +14,11 @@ export default {
         slash: true,
         prefix: true,
         nonprefix: true,
+    },
+
+    ContextMenus: {
+        user: true,
+        message: true,
     },
 
     users: {
