@@ -20,6 +20,7 @@ export default async (client: Aphlaton) => {
                         continue;
                     }
                     log(`*User* context menu loaded to the client [${dir}/${file}].`, 'done');
+                    command.command.setType(2)
                     client.collection.contextMenus.user.set(command.command.name, command);
                     client.applicationcommandsArray.push(command.command)
                 } else if (type === 'message') {
@@ -28,6 +29,7 @@ export default async (client: Aphlaton) => {
                         continue;
                     }
                     log(`*Message* context menu loaded to the client [${dir}/${file}].`, 'done');
+                    command.command.setType(3)
                     client.collection.contextMenus.message.set(command.command.name, command);
                     client.applicationcommandsArray.push(command.command)
                 }
