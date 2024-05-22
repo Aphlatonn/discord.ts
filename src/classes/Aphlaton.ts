@@ -6,15 +6,22 @@ import loadCommand from "../handlers/commands.js";
 import loadComponent from "../handlers/components.js";
 import { AphlatonMessageCommandBuilder, AphlatonSlashCommandBuilder } from "./Commands.js";
 import { AphlatonComponentBuilder } from "./Components.js";
+import { AphlatonContextMenuBuilder } from "./ContextMenus.js";
 import(`../database/sqlite/sqlite.js`)
 
 export default class Aphlaton extends Client {
     collection = {
-        slashcommands: new Collection<string, AphlatonSlashCommandBuilder>(),
-        prefixcommands: new Collection<string, AphlatonMessageCommandBuilder>(),
-        nonprefixcommands: new Collection<string, AphlatonMessageCommandBuilder>(),
-        prefixcommandsaliases: new Collection<string, string>(),
-        nonprefixcommandsaliases: new Collection<string, string>(),
+        commands: {
+            slashcommands: new Collection<string, AphlatonSlashCommandBuilder>(),
+            prefixcommands: new Collection<string, AphlatonMessageCommandBuilder>(),
+            nonprefixcommands: new Collection<string, AphlatonMessageCommandBuilder>(),
+            prefixcommandsaliases: new Collection<string, string>(),
+            nonprefixcommandsaliases: new Collection<string, string>(),
+        },
+        contextMenus: {
+            user: new Collection<string, AphlatonContextMenuBuilder>(),
+            message: new Collection<string, AphlatonContextMenuBuilder>()
+        },
         components: {
             buttons: new Collection<string, AphlatonComponentBuilder>(),
             selects: new Collection<string, AphlatonComponentBuilder>(),
