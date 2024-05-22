@@ -2,6 +2,7 @@ import { Interaction, PermissionsBitField, TextChannel, VoiceChannel } from "dis
 import Aphlaton from "../../classes/Aphlaton.js";
 import { AphlatonEventBuilder } from "../../classes/events.js";
 import { log } from "../../functions.js";
+import config from "../../config.js";
 
 export default new AphlatonEventBuilder()
     .setEvent('interactionCreate')
@@ -12,6 +13,9 @@ export default new AphlatonEventBuilder()
 
         // check if the instraction is a command
         if (!interaction.isCommand()) return;
+
+        // check if the intraction is a slash command
+        if (!interaction.isChatInputCommand() || !config.commands.slash) return;
 
         // get the component from the selects collection
         const command = client.collection.commands.slashcommands.get(interaction.commandName)
