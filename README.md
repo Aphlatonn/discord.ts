@@ -145,7 +145,7 @@ import { AphlatonEventBuilder } from "../../classes/events.js";
 
 export default new AphlatonEventBuilder()
     .setEvent('messageCreate')
-    .setOnce(true)
+    .setOnce(false)
     .setRun(async (client, message) => {
         if (message.content === `hello`){
             message.reply(`world`)
