@@ -1,7 +1,7 @@
-import { PermissionsString, CommandInteraction, ContextMenuCommandBuilder } from 'discord.js';
+import { PermissionsString, ContextMenuCommandBuilder, ContextMenuCommandInteraction } from 'discord.js';
 import Aphlaton from './Aphlaton.js';
 
-type RunFunction = (client: Aphlaton, interaction: CommandInteraction) => Promise<void>;
+type RunFunction = (client: Aphlaton, interaction: ContextMenuCommandInteraction) => Promise<void>;
 
 
 export class AphlatonContextMenuBuilder {
