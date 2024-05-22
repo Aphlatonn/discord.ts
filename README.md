@@ -113,8 +113,17 @@ export default new AphlatonContextMenuBuilder()
 - `NOTE:` in the context menus you dont need to set the context menu type:
 ```ts
 import { ContextMenuCommandBuilder } from "discord.js";
+.
+.
+.
+
 .setCommand(new ContextMenuCommandBuilder()
     .setName('test')
-    .setType(2 or 3) // 2 for user context menu and 3 for message context menu (this .setType() method the handler set it automatically )
+    .setType(2 or 3) // 2 for user context menu and 3 for message context menu
+                     // ( the handler set the type automatically (.setType() method))
 )
+
+.
+.
+.
 ```
