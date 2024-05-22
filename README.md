@@ -113,9 +113,7 @@ export default new AphlatonContextMenuBuilder()
 - `NOTE:` in the context menus you dont need to set the context menu type:
 ```ts
 import { ContextMenuCommandBuilder } from "discord.js";
-.
-.
-.
+. . . .
 
 .setCommand(new ContextMenuCommandBuilder()
     .setName('test')
@@ -123,7 +121,57 @@ import { ContextMenuCommandBuilder } from "discord.js";
                      // ( the handler set the type automatically (.setType() method))
 )
 
-.
-.
-.
+. . . .
+```
+
+
+## Events:
+
+ready event
+```ts
+import { AphlatonEventBuilder } from "../../classes/events.js";
+
+export default new AphlatonEventBuilder()
+    .setEvent('ready')
+    .setOnce(true)
+    .setRun(async (client) => {
+        console.log(`Hello world`);
+    })
+```
+
+message create event
+```ts
+import { AphlatonEventBuilder } from "../../classes/events.js";
+
+export default new AphlatonEventBuilder()
+    .setEvent('messageCreate')
+    .setOnce(true)
+    .setRun(async (client, message) => {
+        if (message.content === `hello`){
+            message.reply(`world`)
+        }
+    })
+```
+
+etc
+
+## Components:
+
+- `NOTE`: all the components have the same structure (modals, select menus, buttons)
+
+```ts
+import { AphlatonComponentBuilder } from "../../../classes/Components.js";
+
+export default new AphlatonComponentBuilder()
+    .setId('test')
+    .setCooldown(5000)
+    .setBotPerms([`Administrator`])
+    .setUserPerms(['SendMessages', `ManageRoles`])
+    .setRun(async (client, interaction) => {
+        if (interaction.isRepliable()) {
+            interaction.reply(`hello world`)
+        } else {
+            interaction.channel.send(`hello world`);
+        }
+    })
 ```
