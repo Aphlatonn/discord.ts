@@ -20,7 +20,7 @@ export default async (client: Aphlaton) => {
                         continue;
                     }
                     log(`*Slash* command loaded to the client [${dir}/${file}].`, 'done');
-                    client.collection.slashcommands.set(command.command.name, command);
+                    client.collection.commands.slashcommands.set(command.command.name, command);
                     client.applicationcommandsArray.push(command.command)
                 } else if (type === 'prefix') {
                     if (!(command instanceof AphlatonMessageCommandBuilder)) {
@@ -29,11 +29,11 @@ export default async (client: Aphlaton) => {
                     }
                     if (command.aliases && Array.isArray(command.aliases)) {
                         command.aliases.forEach(alias => {
-                            client.collection.prefixcommandsaliases.set(alias, command.name);
+                            client.collection.commands.prefixcommandsaliases.set(alias, command.name);
                         });
                     }
                     log(`*Prefix* command loaded to the client [${dir}/${file}].`, 'done');
-                    client.collection.prefixcommands.set(command.name, command);
+                    client.collection.commands.prefixcommands.set(command.name, command);
 
                 } else if (type === 'nonprefix') {
                     if (!(command instanceof AphlatonMessageCommandBuilder)) {
@@ -42,11 +42,11 @@ export default async (client: Aphlaton) => {
                     }
                     if (command.aliases && Array.isArray(command.aliases)) {
                         command.aliases.forEach(alias => {
-                            client.collection.nonprefixcommandsaliases.set(alias, command.name);
+                            client.collection.commands.nonprefixcommandsaliases.set(alias, command.name);
                         });
                     }
                     log(`*nonPrefix* command loaded to the client [${dir}/${file}].`, 'done');
-                    client.collection.nonprefixcommands.set(command.name, command);
+                    client.collection.commands.nonprefixcommands.set(command.name, command);
                 }
 
             }

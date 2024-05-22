@@ -14,7 +14,7 @@ export default new AphlatonEventBuilder()
         if (!interaction.isCommand()) return;
 
         // get the component from the selects collection
-        const command = client.collection.slashcommands.get(interaction.commandName)
+        const command = client.collection.commands.slashcommands.get(interaction.commandName)
 
         // return if the command doesn't exist
         if (!command) return;

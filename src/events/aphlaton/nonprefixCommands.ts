@@ -23,8 +23,8 @@ export default new AphlatonEventBuilder()
 
         // get the command
         const command =
-            client.collection.nonprefixcommands.get(commandInput) ||
-            client.collection.nonprefixcommands.get(client.collection.nonprefixcommandsaliases.get(commandInput));
+            client.collection.commands.nonprefixcommands.get(commandInput) ||
+            client.collection.commands.nonprefixcommands.get(client.collection.commands.nonprefixcommandsaliases.get(commandInput));
 
         // return if the command doesn't exist
         if (!command) return;
