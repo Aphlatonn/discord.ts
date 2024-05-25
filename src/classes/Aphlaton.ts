@@ -8,7 +8,6 @@ import loadContextMenus from "../handlers/ContextMenus.js";
 import { AphlatonMessageCommandBuilder, AphlatonSlashCommandBuilder } from "./Commands.js";
 import { AphlatonComponentBuilder } from "./Components.js";
 import { AphlatonContextMenuBuilder } from "./ContextMenus.js";
-import(`../database/sqlite/sqlite.js`)
 
 export default class Aphlaton extends Client {
     collection = {
