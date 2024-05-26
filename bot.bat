@@ -19,6 +19,13 @@ rem Function definitions
     nodemon dist/index.js
     goto :eof
 
+:build
+    rem Clean the old build
+    rmdir /s /q dist 2>nul
+    rem Convert TypeScript code to JavaScript code
+    tsc
+    goto :eof
+
 :clean
     rem Clean the old build
     rmdir /s /q dist 2>nul
@@ -30,6 +37,12 @@ rem Function definitions
     rem Start option
     echo "- start:"
     echo "clean the old build and rebuild the ts code to js code and run"
+    rem dev option
+    echo "- dev:"
+    echo "run the code with nodemon"
+    rem build option
+    echo "- build:"
+    echo "build the ts code to js code"
     rem Clean option
     echo "- clean:"
     echo "clean the JavaScript build"
@@ -38,7 +51,7 @@ rem Function definitions
 :default
     rem Print the possible options
     echo # Possible options:
-    echo "start, clean, help"
+    echo "start, dev, build, clean, help"
     goto :eof
 
 rem Get the argument from the prompt

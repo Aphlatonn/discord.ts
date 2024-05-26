@@ -19,6 +19,13 @@ dev(){
     nodemon dist/index.js
 }
 
+build(){
+    # clean the old build
+    rm -rf dist
+    # the ts code to js code
+    tsc
+}
+
 clean(){
     # clean the old build
     rm -rf dist
@@ -30,6 +37,12 @@ help(){
     # start option
     echo "- start:"
     echo "clean the old build and rebuild the ts code to js code and run"
+    # dev option
+    echo "- dev:"
+    echo "run the code using nodemon"
+    # build option
+    echo "- build:"
+    echo "compile the ts code to js code"
     # clean option
     echo "- clean:"
     echo "clean the javascript build"
@@ -38,7 +51,7 @@ help(){
 default(){
     # print the possible options
     echo "# Possible options:"
-    echo "start, clean, help"
+    echo "start, dev, build, clean, help"
 }
 
 
