@@ -12,3 +12,13 @@ export default new AphlatonContextMenuBuilder()
     .setRun(async (client, interaction) => {
         interaction.reply(`hello user`)
     })
+
+
+/**
+ * Project: Template
+ * Author: @Aphlaton
+ * this code is under the MIT license.
+ * For more information, contact us at
+ * https://discord.gg/quantom
+ */
+

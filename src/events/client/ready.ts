@@ -7,3 +7,13 @@ export default new AphlatonEventBuilder()
     .setRun(async (client) => {
         log(`Logged in as ${client.user.tag}!`, `info`);
     })
+
+
+/**
+ * Project: Template
+ * Author: @Aphlaton
+ * this code is under the MIT license.
+ * For more information, contact us at
+ * https://discord.gg/quantom
+ */
+

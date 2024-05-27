@@ -12,3 +12,13 @@ export default new AphlatonComponentBuilder()
             interaction.channel.send(`hello world, am a button`);
         }
     })
+
+
+/**
+ * Project: Template
+ * Author: @Aphlaton
+ * this code is under the MIT license.
+ * For more information, contact us at
+ * https://discord.gg/quantom
+ */
+

@@ -15,3 +15,13 @@ export default new AphlatonSlashCommandBuilder()
     .setRun(async (client, interaction) => {
         interaction.reply("hello world");
     })
+
+
+/**
+ * Project: Template
+ * Author: @Aphlaton
+ * this code is under the MIT license.
+ * For more information, contact us at
+ * https://discord.gg/quantom
+ */
+

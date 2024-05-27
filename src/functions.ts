@@ -16,3 +16,13 @@ export function log(text: string, style: "info" | "err" | "warn" | "done") {
 export function isSnowflake(id: string): boolean {
     return /^\d+$/.test(id);
 };
+
+
+/**
+ * Project: Template
+ * Author: @Aphlaton
+ * this code is under the MIT license.
+ * For more information, contact us at
+ * https://discord.gg/quantom
+ */
+

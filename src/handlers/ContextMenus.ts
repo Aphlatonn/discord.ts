@@ -39,6 +39,7 @@ export default async (client: Aphlaton) => {
     }
 };
 
+
 /**
  * Project: Template
  * Author: @Aphlaton
