@@ -4,7 +4,7 @@
 start(){
     # clean the old build
     rm -rf dist
-    # the ts code to js code
+    # compile the ts code to js code
     tsc
     # run the code
     node dist/index.js
@@ -13,7 +13,7 @@ start(){
 dev(){
     # clean the old build
     rm -rf dist
-    # the ts code to js code
+    # compile the ts code to js code
     tsc
     # run the code
     nodemon dist/index.js
@@ -22,7 +22,7 @@ dev(){
 build(){
     # clean the old build
     rm -rf dist
-    # the ts code to js code
+    # compile the ts code to js code
     tsc
 }
 
@@ -55,7 +55,7 @@ default(){
 }
 
 
-# get the args after from the prompt
+# get the option from the user
 opt=$1
 
 # switch case
