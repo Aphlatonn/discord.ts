@@ -16,17 +16,17 @@ export default new AphlatonEventBuilder()
 
         // get the component from the buttons collection
         if (interaction.isButton()) {
-            component = client.collection.components.buttons.get(interaction.customId)
+            component = client.aphlaton.components.buttons[interaction.customId]
         }
 
         // get the component from the modals collection
         if (interaction.isModalSubmit()) {
-            component = client.collection.components.modals.get(interaction.customId)
+            component = client.aphlaton.components.modals[interaction.customId]
         }
 
         // get the component from the selects collection
         if (interaction.isAnySelectMenu()) {
-            component = client.collection.components.selects.get(interaction.customId)
+            component = client.aphlaton.components.selects[interaction.customId]
         }
 
         // return if the command doesn't exist

@@ -14,7 +14,7 @@ export default new AphlatonEventBuilder()
         if (!interaction.isUserContextMenuCommand()) return;
 
         // get the context menu from the selects collection
-        const contextmenu = client.collection.contextMenus.user.get(interaction.commandName)
+        const contextmenu = client.aphlaton.contextMenus.user[interaction.commandName]
 
         // return if the command doesn't exist
         if (!contextmenu) return;

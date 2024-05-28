@@ -18,7 +18,7 @@ export default new AphlatonEventBuilder()
         if (!interaction.isChatInputCommand() || !config.commands.slash) return;
 
         // get the component from the selects collection
-        const command = client.collection.commands.slashcommands.get(interaction.commandName)
+        const command = client.aphlaton.commands.slashcommands[interaction.commandName]
 
         // return if the command doesn't exist
         if (!command) return;
