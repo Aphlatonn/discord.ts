@@ -28,9 +28,9 @@ export default async (client: Aphlaton) => {
                         continue;
                     }
                     if (command.aliases && Array.isArray(command.aliases)) {
-                        command.aliases.forEach(alias => {
-                            client.aphlaton.commands.prefixcommandsaliases[alias] = command.name;
-                        });
+                        for (const a of command.aliases) {
+                            client.aphlaton.commands.prefixcommandsaliases[a] = command.name;
+                        }
                     }
                     log(`*Prefix* command loaded to the client [${dir}/${file}].`, 'done');
                     client.aphlaton.commands.prefixcommands[command.name] = command;
@@ -41,9 +41,9 @@ export default async (client: Aphlaton) => {
                         continue;
                     }
                     if (command.aliases && Array.isArray(command.aliases)) {
-                        command.aliases.forEach(alias => {
-                            client.aphlaton.commands.nonprefixcommandsaliases[alias] = command.name;
-                        });
+                        for (const a of command.aliases) {
+                            client.aphlaton.commands.nonprefixcommandsaliases[a] = command.name;
+                        }
                     }
                     log(`*nonPrefix* command loaded to the client [${dir}/${file}].`, 'done');
                     client.aphlaton.commands.nonprefixcommands[command.name] = command;
