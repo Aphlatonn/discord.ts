@@ -3,6 +3,7 @@ import Aphlaton from "../../classes/Aphlaton.js";
 import { AphlatonEventBuilder } from "../../classes/events.js";
 import { log } from "../../functions.js";
 import config from "../../config.js";
+import { AphlatonContextMenuBuilder } from "../../classes/ContextMenus.js";
 
 export default new AphlatonEventBuilder()
     .setEvent('interactionCreate')
@@ -15,10 +16,25 @@ export default new AphlatonEventBuilder()
         if (!interaction.isMessageContextMenuCommand() || !config.ContextMenus.message) return;
 
         // get the context menu from the selects collection
-        const contextmenu = client.aphlaton.contextMenus.message[interaction.commandName]
+        const contextmenu: AphlatonContextMenuBuilder = client.aphlaton.contextMenus.message[interaction.commandName]
 
         // return if the command doesn't exist
         if (!contextmenu) return;
+
+        // check for the cooldown
+        if (contextmenu.cooldown > 0) {
+            // the cooldown key
+            const key = `m${interaction.user.id}${interaction.commandName}`
+            // if the user noy under cooldown
+            if (!client.aphlaton.cooldowns.has(key)) {
+                client.aphlaton.cooldowns.set(key, 0);
+                setTimeout(() => client.aphlaton.cooldowns.delete(key), contextmenu.cooldown);
+                // if the user is under cooldown
+            } else {
+                interaction.reply(`please wait \`${contextmenu.cooldown / 1000}\` seconds before using this command again.`);
+                return
+            }
+        }
 
         // check the bot perms
         for (const per of contextmenu.botPerms) {

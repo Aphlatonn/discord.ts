@@ -3,6 +3,7 @@ import Aphlaton from "../../classes/Aphlaton.js";
 import { AphlatonEventBuilder } from "../../classes/events.js";
 import { log } from "../../functions.js";
 import config from "../../config.js";
+import { AphlatonSlashCommandBuilder } from "../../classes/Commands.js";
 
 export default new AphlatonEventBuilder()
     .setEvent('interactionCreate')
@@ -18,10 +19,25 @@ export default new AphlatonEventBuilder()
         if (!interaction.isChatInputCommand() || !config.commands.slash) return;
 
         // get the component from the selects collection
-        const command = client.aphlaton.commands.slashcommands[interaction.commandName]
+        const command: AphlatonSlashCommandBuilder = client.aphlaton.commands.slashcommands[interaction.commandName]
 
         // return if the command doesn't exist
         if (!command) return;
+
+        // check for the cooldown
+        if (command.cooldown > 0) {
+            // the cooldown key
+            const key = `s${interaction.user.id}${interaction.commandName}`
+            // if the user noy under cooldown
+            if (!client.aphlaton.cooldowns.has(key)) {
+                client.aphlaton.cooldowns.set(key, 0);
+                setTimeout(() => client.aphlaton.cooldowns.delete(key), command.cooldown);
+                // if the user is under cooldown
+            } else {
+                interaction.reply(`please wait \`${command.cooldown / 1000}\` seconds before using this command again.`);
+                return
+            }
+        }
 
         // check the bot perms
         for (const per of command.botPerms) {

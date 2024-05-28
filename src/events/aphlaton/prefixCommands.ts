@@ -3,6 +3,7 @@ import Aphlaton from "../../classes/Aphlaton.js";
 import { AphlatonEventBuilder } from "../../classes/events.js";
 import config from "../../config.js";
 import { log } from "../../functions.js";
+import { AphlatonMessageCommandBuilder } from "../../classes/Commands.js";
 
 export default new AphlatonEventBuilder()
     .setEvent('messageCreate')
@@ -25,12 +26,27 @@ export default new AphlatonEventBuilder()
         if (!commandInput.length) return;
 
         // get the command
-        const command =
+        const command: AphlatonMessageCommandBuilder =
             client.aphlaton.commands.prefixcommands[commandInput] ||
             client.aphlaton.commands.prefixcommands[client.aphlaton.commands.prefixcommandsaliases[commandInput]];
 
         // return if the command doesn't exist
         if (!command) return;
+
+        // check for the cooldown
+        if (command.cooldown > 0) {
+            // the cooldown key
+            const key = `p${message.author.id}${commandInput}`
+            // if the user noy under cooldown
+            if (!client.aphlaton.cooldowns.has(key)) {
+                client.aphlaton.cooldowns.set(key, 0);
+                setTimeout(() => client.aphlaton.cooldowns.delete(key), command.cooldown);
+                // if the user is under cooldown
+            } else {
+                message.reply(`please wait \`${command.cooldown / 1000}\` seconds before using this command again.`);
+                return
+            }
+        }
 
         // check the bot perms
         for (const per of command.botPerms) {
