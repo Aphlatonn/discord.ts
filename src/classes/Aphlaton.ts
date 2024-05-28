@@ -1,31 +1,28 @@
-import { Client, Partials, Collection, GatewayIntentBits, ActivityType } from "discord.js";
+import { Client, Partials, GatewayIntentBits, ActivityType } from "discord.js";
 import config from "../config.js";
 import loadEvents from "../handlers/events.js";
 import deployCommands from "../handlers/deploy.js";
 import loadCommand from "../handlers/commands.js";
 import loadComponent from "../handlers/components.js";
 import loadContextMenus from "../handlers/ContextMenus.js";
-import { AphlatonMessageCommandBuilder, AphlatonSlashCommandBuilder } from "./Commands.js";
-import { AphlatonComponentBuilder } from "./Components.js";
-import { AphlatonContextMenuBuilder } from "./ContextMenus.js";
 
 export default class Aphlaton extends Client {
-    collection = {
+    aphlaton = {
         commands: {
-            slashcommands: new Collection<string, AphlatonSlashCommandBuilder>(),
-            prefixcommands: new Collection<string, AphlatonMessageCommandBuilder>(),
-            nonprefixcommands: new Collection<string, AphlatonMessageCommandBuilder>(),
-            prefixcommandsaliases: new Collection<string, string>(),
-            nonprefixcommandsaliases: new Collection<string, string>(),
+            slashcommands: {},
+            prefixcommands: {},
+            nonprefixcommands: {},
+            prefixcommandsaliases: {},
+            nonprefixcommandsaliases: {},
         },
         contextMenus: {
-            user: new Collection<string, AphlatonContextMenuBuilder>(),
-            message: new Collection<string, AphlatonContextMenuBuilder>()
+            user: {},
+            message: {},
         },
         components: {
-            buttons: new Collection<string, AphlatonComponentBuilder>(),
-            selects: new Collection<string, AphlatonComponentBuilder>(),
-            modals: new Collection<string, AphlatonComponentBuilder>(),
+            buttons: {},
+            selects: {},
+            modals: {},
         },
     };
 
