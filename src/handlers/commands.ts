@@ -20,7 +20,7 @@ export default async (client: Aphlaton) => {
                         continue;
                     }
                     log(`*Slash* command loaded to the client [${dir}/${file}].`, 'done');
-                    client.collection.commands.slashcommands.set(command.command.name, command);
+                    client.aphlaton.commands.slashcommands[command.command.name] = command;
                     client.applicationcommandsArray.push(command.command)
                 } else if (type === 'prefix') {
                     if (!(command instanceof AphlatonMessageCommandBuilder)) {
@@ -29,11 +29,11 @@ export default async (client: Aphlaton) => {
                     }
                     if (command.aliases && Array.isArray(command.aliases)) {
                         command.aliases.forEach(alias => {
-                            client.collection.commands.prefixcommandsaliases.set(alias, command.name);
+                            client.aphlaton.commands.prefixcommandsaliases[alias] = command.name;
                         });
                     }
                     log(`*Prefix* command loaded to the client [${dir}/${file}].`, 'done');
-                    client.collection.commands.prefixcommands.set(command.name, command);
+                    client.aphlaton.commands.prefixcommands[command.name] = command;
 
                 } else if (type === 'nonprefix') {
                     if (!(command instanceof AphlatonMessageCommandBuilder)) {
@@ -42,11 +42,11 @@ export default async (client: Aphlaton) => {
                     }
                     if (command.aliases && Array.isArray(command.aliases)) {
                         command.aliases.forEach(alias => {
-                            client.collection.commands.nonprefixcommandsaliases.set(alias, command.name);
+                            client.aphlaton.commands.nonprefixcommandsaliases[alias] = command.name;
                         });
                     }
                     log(`*nonPrefix* command loaded to the client [${dir}/${file}].`, 'done');
-                    client.collection.commands.nonprefixcommands.set(command.name, command);
+                    client.aphlaton.commands.nonprefixcommands[command.name] = command;
                 }
 
             }
