@@ -47,9 +47,9 @@ export default new AphlatonEventBuilder()
                 // if the user is under cooldown
             } else {
                 if (interaction.isRepliable()) {
-                    interaction.reply(`please wait \`${component.cooldown / 1000}\` seconds before using this command again.`);
+                    interaction.reply(`please wait \`${component.cooldown / 1000}\` seconds before using this component again.`);
                 } else {
-                    interaction.channel.send(`please wait \`${component.cooldown / 1000}\` seconds before using this command again.`);
+                    interaction.channel.send(`please wait \`${component.cooldown / 1000}\` seconds before using this component again.`);
                 }
                 return
             }
