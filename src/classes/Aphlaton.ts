@@ -7,6 +7,7 @@ import loadComponent from "../handlers/components.js";
 import loadContextMenus from "../handlers/ContextMenus.js";
 
 export default class Aphlaton extends Client {
+
     aphlaton = {
         commands: {
             slashcommands: {},
@@ -24,6 +25,7 @@ export default class Aphlaton extends Client {
             selects: {},
             modals: {},
         },
+        cooldowns: new Map<string, number>(),
     };
 
     applicationcommandsArray = [];
