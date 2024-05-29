@@ -1,8 +1,6 @@
-
 import {
     ActionRowBuilder,
     ButtonBuilder,
-    ButtonStyle,
     ComponentType,
     EmbedBuilder,
     ButtonInteraction,
@@ -19,48 +17,22 @@ export default class Pagination {
     private embeds: EmbedBuilder[];
     private user: User;
     private currentPage: number;
-    private enableFirstButton: boolean;
-    private enableBackButton: boolean;
-    private enableForwardButton: boolean;
-    private enableLastButton: boolean;
     private isPrivate: boolean;
     private endBehavior: EndBehavior;
     private collectorTime: number;
     private editOptions: NewEditObject | null;
+    private cycle: boolean;
 
     constructor(channel: TextBasedChannel, embeds: EmbedBuilder[], user: User) {
         this.channel = channel;
         this.embeds = embeds;
         this.user = user;
         this.currentPage = 0;
-        this.enableFirstButton = true;
-        this.enableBackButton = true;
-        this.enableForwardButton = true;
-        this.enableLastButton = true;
         this.isPrivate = false;
         this.endBehavior = 'remove';
         this.collectorTime = 60000;
         this.editOptions = null;
-    }
-
-    setEnableFirstButton(enable: boolean) {
-        this.enableFirstButton = enable;
-        return this;
-    }
-
-    setEnableBackButton(enable: boolean) {
-        this.enableBackButton = enable;
-        return this;
-    }
-
-    setEnableForwardButton(enable: boolean) {
-        this.enableForwardButton = enable;
-        return this;
-    }
-
-    setEnableLastButton(enable: boolean) {
-        this.enableLastButton = enable;
-        return this;
+        this.cycle = true;
     }
 
     setPrivate(isPrivate: boolean) {
@@ -83,6 +55,11 @@ export default class Pagination {
         return this;
     }
 
+    setCycle(cycle: boolean) {
+        this.cycle = cycle;
+        return this;
+    }
+
     async paginate() {
         if (!this.embeds || this.embeds.length === 0) return;
 
@@ -90,28 +67,40 @@ export default class Pagination {
             .setCustomId('first')
             .setLabel('<<')
             .setStyle(2)
-            .setDisabled(!this.enableFirstButton);
 
         const backButton = new ButtonBuilder()
             .setCustomId('back')
             .setLabel('<')
             .setStyle(2)
-            .setDisabled(!this.enableBackButton);
 
         const forwardButton = new ButtonBuilder()
             .setCustomId('forward')
             .setLabel('>')
             .setStyle(2)
-            .setDisabled(!this.enableForwardButton);
 
         const lastButton = new ButtonBuilder()
             .setCustomId('last')
             .setLabel('>>')
             .setStyle(2)
-            .setDisabled(!this.enableLastButton);
 
         const row = new ActionRowBuilder<ButtonBuilder>()
             .addComponents(firstButton, backButton, forwardButton, lastButton);
+
+        const updateButtons = () => {
+            if (this.cycle) {
+                firstButton.setDisabled(false);
+                backButton.setDisabled(false);
+                forwardButton.setDisabled(false);
+                lastButton.setDisabled(false);
+            } else {
+                firstButton.setDisabled(this.currentPage === 0);
+                backButton.setDisabled(this.currentPage === 0);
+                forwardButton.setDisabled(this.currentPage === this.embeds.length - 1);
+                lastButton.setDisabled(this.currentPage === this.embeds.length - 1);
+            }
+        };
+
+        updateButtons();
 
         const message = await this.channel.send({
             embeds: [this.embeds[this.currentPage]],
@@ -134,17 +123,26 @@ export default class Pagination {
                     this.currentPage = 0;
                     break;
                 case 'back':
-                    this.currentPage = (this.currentPage - 1 + this.embeds.length) % this.embeds.length;
+                    this.currentPage = this.cycle
+                        ? (this.currentPage - 1 + this.embeds.length) % this.embeds.length
+                        : Math.max(0, this.currentPage - 1);
                     break;
                 case 'forward':
-                    this.currentPage = (this.currentPage + 1) % this.embeds.length;
+                    this.currentPage = this.cycle
+                        ? (this.currentPage + 1) % this.embeds.length
+                        : Math.min(this.embeds.length - 1, this.currentPage + 1);
                     break;
                 case 'last':
                     this.currentPage = this.embeds.length - 1;
                     break;
             }
 
-            await i.update({ embeds: [this.embeds[this.currentPage]], components: [row] });
+            updateButtons();
+
+            await i.update({
+                embeds: [this.embeds[this.currentPage]],
+                components: [row],
+            });
         });
 
         collector.on('end', async () => {
@@ -166,7 +164,7 @@ export default class Pagination {
                 } else {
                     await message.edit({
                         embeds: [this.embeds[this.currentPage].setFooter({ text: 'Pagination ended' })],
-                        components: [disabledRow]
+                        components: [disabledRow],
                     });
                 }
             }
