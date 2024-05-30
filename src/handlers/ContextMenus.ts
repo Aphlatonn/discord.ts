@@ -20,18 +20,18 @@ export default async (client: Aphlaton) => {
                         continue;
                     }
                     log(`*User* context menu loaded to the client [${dir}/${file}].`, 'done');
-                    command.command.setType(2)
-                    client.aphlaton.contextMenus.user[command.command.name] = command;
-                    client.applicationcommandsArray.push(command.command)
+                    command.data.command.setType(2)
+                    client.aphlaton.contextMenus.user[command.data.command.name] = command;
+                    client.applicationcommandsArray.push(command.data.command)
                 } else if (type === 'message') {
                     if (!(command instanceof AphlatonContextMenuBuilder)) {
                         log(`Unable to load the *message* context menu [${dir}/${file}] due to incorrect export type.`, 'warn');
                         continue;
                     }
                     log(`*Message* context menu loaded to the client [${dir}/${file}].`, 'done');
-                    command.command.setType(3)
-                    client.aphlaton.contextMenus.message[command.command.name] = command;
-                    client.applicationcommandsArray.push(command.command)
+                    command.data.command.setType(3)
+                    client.aphlaton.contextMenus.message[command.data.command.name] = command;
+                    client.applicationcommandsArray.push(command.data.command)
                 }
 
             }

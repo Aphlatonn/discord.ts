@@ -15,7 +15,7 @@ export default async (client: Aphlaton) => {
                 continue;
             }
 
-            if (!module.event || !module.run) {
+            if (!module.data.event || !module.data.run) {
                 log(`Unable to load the *event* [${dir}/${file}] due to missing event name or/and run function.`, "warn");
 
                 continue;
@@ -23,10 +23,10 @@ export default async (client: Aphlaton) => {
 
             log(`*Event* loaded to the client [${dir}/${file}].`, 'done');
 
-            if (module.once) {
-                client.once(module.event, (...args) => module.run(client, ...args));
+            if (module.data.once) {
+                client.once(module.data.event, (...args) => module.data.run(client, ...args));
             } else {
-                client.on(module.event, (...args) => module.run(client, ...args));
+                client.on(module.data.event, (...args) => module.data.run(client, ...args));
             }
         }
     }

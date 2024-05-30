@@ -20,33 +20,33 @@ export default async (client: Aphlaton) => {
                         continue;
                     }
                     log(`*Slash* command loaded to the client [${dir}/${file}].`, 'done');
-                    client.aphlaton.commands.slashcommands[command.command.name] = command;
-                    client.applicationcommandsArray.push(command.command)
+                    client.aphlaton.commands.slashcommands[command.data.command.name] = command;
+                    client.applicationcommandsArray.push(command.data.command)
                 } else if (type === 'prefix') {
                     if (!(command instanceof AphlatonMessageCommandBuilder)) {
                         log(`Unable to load the *prefix* command [${dir}/${file}] due to incorrect export type.`, 'warn');
                         continue;
                     }
-                    if (command.aliases && Array.isArray(command.aliases)) {
-                        for (const a of command.aliases) {
-                            client.aphlaton.commands.prefixcommandsaliases[a] = command.name;
+                    if (command.data.aliases && Array.isArray(command.data.aliases)) {
+                        for (const a of command.data.aliases) {
+                            client.aphlaton.commands.prefixcommandsaliases[a] = command.data.name;
                         }
                     }
                     log(`*Prefix* command loaded to the client [${dir}/${file}].`, 'done');
-                    client.aphlaton.commands.prefixcommands[command.name] = command;
+                    client.aphlaton.commands.prefixcommands[command.data.name] = command;
 
                 } else if (type === 'nonprefix') {
                     if (!(command instanceof AphlatonMessageCommandBuilder)) {
                         log(`Unable to load the *non prefix* command [${dir}/${file}] due to incorrect export type.`, 'warn');
                         continue;
                     }
-                    if (command.aliases && Array.isArray(command.aliases)) {
-                        for (const a of command.aliases) {
-                            client.aphlaton.commands.nonprefixcommandsaliases[a] = command.name;
+                    if (command.data.aliases && Array.isArray(command.data.aliases)) {
+                        for (const a of command.data.aliases) {
+                            client.aphlaton.commands.nonprefixcommandsaliases[a] = command.data.name;
                         }
                     }
                     log(`*nonPrefix* command loaded to the client [${dir}/${file}].`, 'done');
-                    client.aphlaton.commands.nonprefixcommands[command.name] = command;
+                    client.aphlaton.commands.nonprefixcommands[command.data.name] = command;
                 }
 
             }
