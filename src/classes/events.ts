@@ -4,22 +4,33 @@ import Aphlaton from './Aphlaton.js';
 type RunFunction = (client: Aphlaton, ...args: ClientEvents[keyof ClientEvents]) => Promise<void>;
 
 export class AphlatonEventBuilder {
-    event: keyof ClientEvents;
-    once: boolean = false;
-    run: RunFunction = async () => { };
+    data: {
+        event: keyof ClientEvents;
+        once: boolean;
+        run: RunFunction;
+    }
+
+    constructor() {
+        this.data = {
+            event: null,
+            once: false,
+            run: async () => { },
+        }
+
+    }
 
     setEvent(name: keyof ClientEvents): this {
-        this.event = name;
+        this.data.event = name;
         return this;
     }
 
     setOnce(bool: boolean): this {
-        this.once = bool;
+        this.data.once = bool;
         return this;
     }
 
     setRun(run: RunFunction): this {
-        this.run = run;
+        this.data.run = run;
         return this;
     }
 }

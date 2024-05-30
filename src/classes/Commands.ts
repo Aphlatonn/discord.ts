@@ -6,116 +6,149 @@ type IRunFunction = (client: Aphlaton, interaction: CommandInteraction) => Promi
 
 
 export class AphlatonMessageCommandBuilder {
-    name: string = '';
-    aliases: string[] = [];
-    cooldown: number = 0;
-    description: string = '';
-    category: string = '';
-    usage: string[] = [];
-    examples: string[] = [];
-    botPerms: PermissionsString[] = [];
-    userPerms: PermissionsString[] = [];
-    nsfw: boolean = false;
-    run: MRunFunction = async () => { };
+    data: {
+        name: string;
+        aliases: string[];
+        cooldown: number;
+        description: string;
+        category: string;
+        usage: string[];
+        examples: string[];
+        botPerms: PermissionsString[];
+        userPerms: PermissionsString[];
+        nsfw: boolean;
+        run: MRunFunction;
+    }
+
+    constructor() {
+        this.data = {
+            name: '',
+            aliases: [],
+            cooldown: 0,
+            description: '',
+            category: '',
+            usage: [],
+            examples: [],
+            botPerms: [],
+            userPerms: [],
+            nsfw: false,
+            run: async () => { },
+        }
+
+    }
 
     setName(name: string): this {
-        this.name = name;
+        this.data.name = name;
         return this;
     }
 
     setAliases(aliases: string[]): this {
-        this.aliases = aliases;
+        this.data.aliases = aliases;
         return this;
     }
 
     setCooldown(cooldown: number): this {
-        this.cooldown = cooldown;
+        this.data.cooldown = cooldown;
         return this;
     }
 
     setDescription(description: string): this {
-        this.description = description;
+        this.data.description = description;
         return this;
     }
 
 
     setCategory(category: string): this {
-        this.category = category;
+        this.data.category = category;
         return this;
     }
 
     setUsage(usage: string[]): this {
-        this.usage = usage;
+        this.data.usage = usage;
         return this;
     }
 
     setExamples(examples: string[]): this {
-        this.examples = examples;
+        this.data.examples = examples;
         return this;
     }
 
     setBotPerms(botPerms: PermissionsString[]): this {
-        this.botPerms = botPerms;
+        this.data.botPerms = botPerms;
         return this;
     }
 
     setUserPerms(userPerms: PermissionsString[]): this {
-        this.userPerms = userPerms;
+        this.data.userPerms = userPerms;
         return this;
     }
 
     setNSFW(bool: boolean): this {
-        this.nsfw = bool;
+        this.data.nsfw = bool;
         return this;
     }
 
     setRun(run: MRunFunction): this {
-        this.run = run;
+        this.data.run = run;
         return this;
     }
 }
 
 export class AphlatonSlashCommandBuilder {
-    command: SlashCommandBuilder
-    cooldown: number = 0;
-    category: string = '';
-    botPerms: PermissionsString[] = [];
-    userPerms: PermissionsString[] = [];
-    nsfw: boolean = false;
-    run: IRunFunction = async () => { };
+    data: {
+        command: SlashCommandBuilder
+        cooldown: number;
+        category: string;
+        botPerms: PermissionsString[];
+        userPerms: PermissionsString[];
+        nsfw: boolean;
+        run: IRunFunction;
+    }
+
+    constructor() {
+        this.data = {
+            command: null,
+            cooldown: 0,
+            category: '',
+            botPerms: [],
+            userPerms: [],
+            nsfw: false,
+            run: async () => { },
+        }
+    }
 
     setCommand(command: SlashCommandBuilder): this {
-        this.command = command;
+        this.data.command = command;
         return this;
     }
 
     setCooldown(cooldown: number): this {
-        this.cooldown = cooldown;
+        this.data.cooldown = cooldown;
         return this;
     }
 
     setCategory(category: string): this {
-        this.category = category;
+        this.data.category = category;
         return this;
     }
 
     setBotPerms(botPerms: PermissionsString[]): this {
-        this.botPerms = botPerms;
+        this.data.botPerms = botPerms;
         return this;
     }
 
     setUserPerms(userPerms: PermissionsString[]): this {
-        this.userPerms = userPerms;
+        this.data.userPerms = userPerms;
         return this;
     }
 
     setNSFW(bool: boolean): this {
-        this.nsfw = bool;
+        this.data.nsfw = bool;
         return this;
     }
 
     setRun(run: IRunFunction): this {
-        this.run = run;
+        this.data.run = run;
         return this;
     }
 }

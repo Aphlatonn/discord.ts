@@ -5,35 +5,49 @@ type RunFunction = (client: Aphlaton, interaction: Interaction) => Promise<void>
 
 
 export class AphlatonComponentBuilder {
-    id: string = '';
-    cooldown: number = 0;
-    botPerms: PermissionsString[] = [];
-    userPerms: PermissionsString[] = [];
-    nsfw: boolean = false;
-    run: RunFunction = async () => { };
+    data: {
+        id: string;
+        cooldown: number;
+        botPerms: PermissionsString[];
+        userPerms: PermissionsString[];
+        nsfw: boolean;
+        run: RunFunction;
+    }
+
+    constructor() {
+        this.data = {
+            id: '',
+            cooldown: 0,
+            botPerms: [],
+            userPerms: [],
+            nsfw: false,
+            run: async () => { },
+        }
+
+    }
 
     setId(id: string): this {
-        this.id = id;
+        this.data.id = id;
         return this;
     }
 
     setCooldown(cooldown: number): this {
-        this.cooldown = cooldown;
+        this.data.cooldown = cooldown;
         return this;
     }
 
     setBotPerms(botPerms: PermissionsString[]): this {
-        this.botPerms = botPerms;
+        this.data.botPerms = botPerms;
         return this;
     }
 
     setUserPerms(userPerms: PermissionsString[]): this {
-        this.userPerms = userPerms;
+        this.data.userPerms = userPerms;
         return this;
     }
 
     setRun(run: RunFunction): this {
-        this.run = run;
+        this.data.run = run;
         return this;
     }
 }
