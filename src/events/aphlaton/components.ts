@@ -37,26 +37,26 @@ export default new AphlatonEventBuilder()
         if (!component) return;
 
         // check for the cooldown
-        if (component.cooldown > 0) {
+        if (component.data.cooldown > 0) {
             // the cooldown key
-            const key = `${interaction.user.id}${component.id}${type}`
+            const key = `${interaction.user.id}${component.data.id}${type}`
             // if the user noy under cooldown
             if (!client.aphlaton.cooldowns.has(key)) {
                 client.aphlaton.cooldowns.set(key, 0);
-                setTimeout(() => client.aphlaton.cooldowns.delete(key), component.cooldown);
+                setTimeout(() => client.aphlaton.cooldowns.delete(key), component.data.cooldown);
                 // if the user is under cooldown
             } else {
                 if (interaction.isRepliable()) {
-                    interaction.reply(`please wait \`${component.cooldown / 1000}\` seconds before using this component again.`);
+                    interaction.reply(`please wait \`${component.data.cooldown / 1000}\` seconds before using this component again.`);
                 } else {
-                    interaction.channel.send(`please wait \`${component.cooldown / 1000}\` seconds before using this component again.`);
+                    interaction.channel.send(`please wait \`${component.data.cooldown / 1000}\` seconds before using this component again.`);
                 }
                 return
             }
         }
 
         // check the bot perms
-        for (const per of component.botPerms) {
+        for (const per of component.data.botPerms) {
             if (!interaction.guild.members.me.permissions.has(per)) {
                 if (interaction.isRepliable()) {
                     interaction.reply(`i need the \`${per}\` permission to execute this command.`);
@@ -68,7 +68,7 @@ export default new AphlatonEventBuilder()
         }
 
         // check the member perms
-        for (const per of component.userPerms) {
+        for (const per of component.data.userPerms) {
             if (!(interaction.member.permissions as PermissionsBitField).has(per)) {
                 if (interaction.isRepliable()) {
                     interaction.reply(`you need the \`${per}\` permission to use this command.`);
@@ -80,7 +80,7 @@ export default new AphlatonEventBuilder()
         }
 
         // check the nsfw
-        if (interaction.channel instanceof TextChannel || interaction.channel instanceof VoiceChannel && component.nsfw && !interaction.channel.nsfw) {
+        if (interaction.channel instanceof TextChannel || interaction.channel instanceof VoiceChannel && component.data.nsfw && !interaction.channel.nsfw) {
             if (interaction.isRepliable()) {
                 interaction.reply('this command can only be used in nsfw channels.');
             } else {
@@ -89,7 +89,7 @@ export default new AphlatonEventBuilder()
             return
         }
 
-        component.run(client, interaction).catch(error => {
+        component.data.run(client, interaction).catch(error => {
             log("An error occured while executing the component: " + component, "err");
             console.log(error)
         })

@@ -22,22 +22,22 @@ export default new AphlatonEventBuilder()
         if (!contextmenu) return;
 
         // check for the cooldown
-        if (contextmenu.cooldown > 0) {
+        if (contextmenu.data.cooldown > 0) {
             // the cooldown key
             const key = `m${interaction.user.id}${interaction.commandName}`
             // if the user noy under cooldown
             if (!client.aphlaton.cooldowns.has(key)) {
                 client.aphlaton.cooldowns.set(key, 0);
-                setTimeout(() => client.aphlaton.cooldowns.delete(key), contextmenu.cooldown);
+                setTimeout(() => client.aphlaton.cooldowns.delete(key), contextmenu.data.cooldown);
                 // if the user is under cooldown
             } else {
-                interaction.reply(`please wait \`${contextmenu.cooldown / 1000}\` seconds before using this command again.`);
+                interaction.reply(`please wait \`${contextmenu.data.cooldown / 1000}\` seconds before using this command again.`);
                 return
             }
         }
 
         // check the bot perms
-        for (const per of contextmenu.botPerms) {
+        for (const per of contextmenu.data.botPerms) {
             if (!interaction.guild.members.me.permissions.has(per)) {
                 if (interaction.isRepliable()) {
                     interaction.reply(`i need the \`${per}\` permission to execute this command.`);
@@ -47,7 +47,7 @@ export default new AphlatonEventBuilder()
         }
 
         // check the member perms
-        for (const per of contextmenu.userPerms) {
+        for (const per of contextmenu.data.userPerms) {
             if (!(interaction.member.permissions as PermissionsBitField).has(per)) {
                 if (interaction.isRepliable()) {
                     interaction.reply(`you need the \`${per}\` permission to use this command.`);
@@ -57,15 +57,15 @@ export default new AphlatonEventBuilder()
         }
 
         // check the nsfw
-        if (interaction.channel instanceof TextChannel || interaction.channel instanceof VoiceChannel && contextmenu.nsfw && !interaction.channel.nsfw) {
+        if (interaction.channel instanceof TextChannel || interaction.channel instanceof VoiceChannel && contextmenu.data.nsfw && !interaction.channel.nsfw) {
             if (interaction.isRepliable()) {
                 interaction.reply('this command can only be used in nsfw channels.');
             }
             return
         }
 
-        contextmenu.run(client, interaction).catch(error => {
-            log("An error occured while executing the command: " + contextmenu.command.name, "err");
+        contextmenu.data.run(client, interaction).catch(error => {
+            log("An error occured while executing the command: " + contextmenu.data.command.name, "err");
             console.log(error)
         })
 

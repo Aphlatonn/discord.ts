@@ -34,22 +34,22 @@ export default new AphlatonEventBuilder()
         if (!command) return;
 
         // check for the cooldown
-        if (command.cooldown > 0) {
+        if (command.data.cooldown > 0) {
             // the cooldown key
             const key = `p${message.author.id}${commandInput}`
             // if the user noy under cooldown
             if (!client.aphlaton.cooldowns.has(key)) {
                 client.aphlaton.cooldowns.set(key, 0);
-                setTimeout(() => client.aphlaton.cooldowns.delete(key), command.cooldown);
+                setTimeout(() => client.aphlaton.cooldowns.delete(key), command.data.cooldown);
                 // if the user is under cooldown
             } else {
-                message.reply(`please wait \`${command.cooldown / 1000}\` seconds before using this command again.`);
+                message.reply(`please wait \`${command.data.cooldown / 1000}\` seconds before using this command again.`);
                 return
             }
         }
 
         // check the bot perms
-        for (const per of command.botPerms) {
+        for (const per of command.data.botPerms) {
             if (!message.guild.members.me.permissions.has(per)) {
                 message.reply(`i need the \`${per}\` permission to execute this command.`);
                 return
@@ -57,7 +57,7 @@ export default new AphlatonEventBuilder()
         }
 
         // check the member perms
-        for (const per of command.userPerms) {
+        for (const per of command.data.userPerms) {
             if (!message.member.permissions.has(per)) {
                 message.reply(`you need the \`${per}\` permission to use this command.`);
                 return
@@ -65,12 +65,12 @@ export default new AphlatonEventBuilder()
         }
 
         // check the nsfw
-        if (message.channel instanceof TextChannel || message.channel instanceof VoiceChannel && command.nsfw && !message.channel.nsfw) {
+        if (message.channel instanceof TextChannel || message.channel instanceof VoiceChannel && command.data.nsfw && !message.channel.nsfw) {
             message.reply('this command can only be used in nsfw channels.');
             return
         }
 
-        command.run(client, message, args).catch(error => {
+        command.data.run(client, message, args).catch(error => {
             log("An error occured while executing the command: " + commandInput, "err");
             console.log(error)
         })
