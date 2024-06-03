@@ -68,6 +68,11 @@ export default class Pagination {
 
         if (!embeds || embeds.length === 0) return;
 
+        if (embeds.length === 1) {
+            channel.send({ embeds: embeds });
+            return
+        }
+
         const firstButton = new ButtonBuilder()
             .setCustomId('pfirst')
             .setLabel('<<')

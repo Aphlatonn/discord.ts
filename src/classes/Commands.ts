@@ -1,8 +1,8 @@
 import { PermissionsString, SlashCommandBuilder, CommandInteraction, Message } from 'discord.js';
 import Aphlaton from './Aphlaton.js';
 
-type MRunFunction = (client: Aphlaton, message: Message, args: string[]) => Promise<void>;
-type IRunFunction = (client: Aphlaton, interaction: CommandInteraction) => Promise<void>;
+type MRunFunction = (client: Aphlaton, message: Message, args: string[]) => Promise<any>;
+type IRunFunction = (client: Aphlaton, interaction: CommandInteraction) => Promise<any>;
 
 
 export class AphlatonMessageCommandBuilder {

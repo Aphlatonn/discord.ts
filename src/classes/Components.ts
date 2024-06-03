@@ -1,7 +1,7 @@
 import { PermissionsString, Interaction } from 'discord.js';
 import Aphlaton from './Aphlaton.js';
 
-type RunFunction = (client: Aphlaton, interaction: Interaction) => Promise<void>;
+type RunFunction = (client: Aphlaton, interaction: Interaction) => Promise<any>;
 
 
 export class AphlatonComponentBuilder {

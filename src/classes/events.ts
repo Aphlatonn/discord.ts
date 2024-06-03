@@ -1,7 +1,7 @@
 import { ClientEvents } from 'discord.js';
 import Aphlaton from './Aphlaton.js';
 
-type RunFunction = (client: Aphlaton, ...args: ClientEvents[keyof ClientEvents]) => Promise<void>;
+type RunFunction = (client: Aphlaton, ...args: ClientEvents[keyof ClientEvents]) => Promise<any>;
 
 export class AphlatonEventBuilder {
     data: {
