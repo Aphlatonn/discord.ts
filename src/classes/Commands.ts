@@ -17,6 +17,7 @@ export class AphlatonMessageCommandBuilder {
         botPerms: PermissionsString[];
         userPerms: PermissionsString[];
         nsfw: boolean;
+        developersOnly: boolean;
         run: MRunFunction;
     }
 
@@ -32,6 +33,7 @@ export class AphlatonMessageCommandBuilder {
             botPerms: [],
             userPerms: [],
             nsfw: false,
+            developersOnly: false,
             run: async () => { },
         }
 
@@ -88,6 +90,11 @@ export class AphlatonMessageCommandBuilder {
         return this;
     }
 
+    setDevsOnly(bool: boolean): this {
+        this.data.developersOnly = bool;
+        return this;
+    }
+
     setRun(run: MRunFunction): this {
         this.data.run = run;
         return this;
@@ -102,6 +109,7 @@ export class AphlatonSlashCommandBuilder {
         botPerms: PermissionsString[];
         userPerms: PermissionsString[];
         nsfw: boolean;
+        developersOnly: boolean;
         run: IRunFunction;
     }
 
@@ -113,6 +121,7 @@ export class AphlatonSlashCommandBuilder {
             botPerms: [],
             userPerms: [],
             nsfw: false,
+            developersOnly: false,
             run: async () => { },
         }
     }
@@ -144,6 +153,11 @@ export class AphlatonSlashCommandBuilder {
 
     setNSFW(bool: boolean): this {
         this.data.nsfw = bool;
+        return this;
+    }
+
+    setDevsOnly(bool: boolean): this {
+        this.data.developersOnly = bool;
         return this;
     }
 
