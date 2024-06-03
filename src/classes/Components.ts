@@ -11,6 +11,7 @@ export class AphlatonComponentBuilder {
         botPerms: PermissionsString[];
         userPerms: PermissionsString[];
         nsfw: boolean;
+        developersOnly: boolean;
         run: RunFunction;
     }
 
@@ -21,6 +22,7 @@ export class AphlatonComponentBuilder {
             botPerms: [],
             userPerms: [],
             nsfw: false,
+            developersOnly: false,
             run: async () => { },
         }
 
@@ -43,6 +45,16 @@ export class AphlatonComponentBuilder {
 
     setUserPerms(userPerms: PermissionsString[]): this {
         this.data.userPerms = userPerms;
+        return this;
+    }
+
+    setNSFW(bool: boolean): this {
+        this.data.nsfw = bool;
+        return this;
+    }
+
+    setDevelopersOnly(bool: boolean): this {
+        this.data.developersOnly = bool;
         return this;
     }
 
