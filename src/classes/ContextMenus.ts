@@ -12,6 +12,7 @@ export class AphlatonContextMenuBuilder {
         botPerms: PermissionsString[]
         userPerms: PermissionsString[]
         nsfw: boolean
+        developersOnly: boolean
         run: RunFunction
     }
 
@@ -22,6 +23,7 @@ export class AphlatonContextMenuBuilder {
             botPerms: [],
             userPerms: [],
             nsfw: false,
+            developersOnly: false,
             run: async () => { },
         }
     }
@@ -48,6 +50,11 @@ export class AphlatonContextMenuBuilder {
 
     setNSFW(bool: boolean): this {
         this.data.nsfw = bool;
+        return this;
+    }
+
+    setDevsOnly(bool: boolean): this {
+        this.data.developersOnly = bool;
         return this;
     }
 
