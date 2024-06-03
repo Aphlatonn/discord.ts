@@ -70,6 +70,12 @@ export default new AphlatonEventBuilder()
             return
         }
 
+        // check the developers perm
+        if (command.data.developersOnly && !config.users.developers.includes(message.author.id)) {
+            message.reply('only developers can use this command.');
+            return
+        }
+
         command.data.run(client, message, args).catch(error => {
             log("An error occured while executing the command: " + commandInput, "err");
             console.log(error)
