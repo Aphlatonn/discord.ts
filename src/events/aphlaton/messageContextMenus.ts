@@ -64,6 +64,14 @@ export default new AphlatonEventBuilder()
             return
         }
 
+        // check the developers perm
+        if (contextmenu.data.developersOnly && !config.users.developers.includes(interaction.user.id)) {
+            if (interaction.isRepliable()) {
+                interaction.reply('only developers can use this command.');
+            }
+            return
+        }
+
         contextmenu.data.run(client, interaction).catch(error => {
             log("An error occured while executing the command: " + contextmenu.data.command.name, "err");
             console.log(error)
