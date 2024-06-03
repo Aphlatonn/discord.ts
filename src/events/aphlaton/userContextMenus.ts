@@ -3,6 +3,7 @@ import Aphlaton from "../../classes/Aphlaton.js";
 import { AphlatonEventBuilder } from "../../classes/events.js";
 import { log } from "../../functions.js";
 import { AphlatonContextMenuBuilder } from "../../classes/ContextMenus.js";
+import config from "../../config.js";
 
 export default new AphlatonEventBuilder()
     .setEvent('interactionCreate')
@@ -59,6 +60,14 @@ export default new AphlatonEventBuilder()
         if (interaction.channel instanceof TextChannel || interaction.channel instanceof VoiceChannel && contextmenu.data.nsfw && !interaction.channel.nsfw) {
             if (interaction.isRepliable()) {
                 interaction.reply('this command can only be used in nsfw channels.');
+            }
+            return
+        }
+
+        // check the developers perm
+        if (contextmenu.data.developersOnly && !config.users.developers.includes(interaction.user.id)) {
+            if (interaction.isRepliable()) {
+                interaction.reply('only developers can use this command.');
             }
             return
         }
