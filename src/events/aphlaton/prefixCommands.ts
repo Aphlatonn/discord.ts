@@ -1,4 +1,4 @@
-import { Message, TextChannel, VoiceChannel } from "discord.js";
+import { ChannelType, Message } from "discord.js";
 import Aphlaton from "../../classes/Aphlaton.js";
 import { AphlatonEventBuilder } from "../../classes/events.js";
 import config from "../../config.js";
@@ -65,9 +65,11 @@ export default new AphlatonEventBuilder()
         }
 
         // check the nsfw
-        if (message.channel instanceof TextChannel || message.channel instanceof VoiceChannel && command.data.nsfw && !message.channel.nsfw) {
-            message.reply('this command can only be used in nsfw channels.');
-            return
+        if (message.channel.type === ChannelType.GuildText || message.channel.type === ChannelType.GuildVoice) {
+            if (command.data.nsfw && !message.channel.nsfw) {
+                message.reply('this command can only be used in nsfw channels.');
+                return
+            }
         }
 
         // check the developers perm

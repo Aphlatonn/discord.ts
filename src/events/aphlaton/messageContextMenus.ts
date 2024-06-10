@@ -1,4 +1,4 @@
-import { Interaction, PermissionsBitField, TextChannel, VoiceChannel } from "discord.js";
+import { Interaction, PermissionsBitField, ChannelType } from "discord.js";
 import Aphlaton from "../../classes/Aphlaton.js";
 import { AphlatonEventBuilder } from "../../classes/events.js";
 import { log } from "../../functions.js";
@@ -57,27 +57,28 @@ export default new AphlatonEventBuilder()
         }
 
         // check the nsfw
-        if (interaction.channel instanceof TextChannel || interaction.channel instanceof VoiceChannel && contextmenu.data.nsfw && !interaction.channel.nsfw) {
-            if (interaction.isRepliable()) {
-                interaction.reply('this command can only be used in nsfw channels.');
+        if (interaction.channel.type === ChannelType.GuildText || interaction.channel.type === ChannelType.GuildVoice) {
+            if (contextmenu.data.nsfw && !interaction.channel.nsfw) {
+                if (interaction.isRepliable()) {
+                    interaction.reply('this command can only be used in nsfw channels.');
+                }
+                return
             }
-            return
-        }
 
-        // check the developers perm
-        if (contextmenu.data.developersOnly && !config.users.developers.includes(interaction.user.id)) {
-            if (interaction.isRepliable()) {
-                interaction.reply('only developers can use this command.');
+            // check the developers perm
+            if (contextmenu.data.developersOnly && !config.users.developers.includes(interaction.user.id)) {
+                if (interaction.isRepliable()) {
+                    interaction.reply('only developers can use this command.');
+                }
+                return
             }
-            return
-        }
 
-        contextmenu.data.run(client, interaction).catch(error => {
-            log("An error occured while executing the command: " + contextmenu.data.command.name, "err");
-            console.log(error)
+            contextmenu.data.run(client, interaction).catch(error => {
+                log("An error occured while executing the command: " + contextmenu.data.command.name, "err");
+                console.log(error)
+            })
+
         })
-
-    })
 
 
 /**
