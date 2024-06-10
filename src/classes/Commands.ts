@@ -1,8 +1,8 @@
-import { PermissionsString, SlashCommandBuilder, CommandInteraction, Message } from 'discord.js';
+import { PermissionsString, SlashCommandBuilder, Message, ChatInputCommandInteraction, SlashCommandOptionsOnlyBuilder } from 'discord.js';
 import Aphlaton from './Aphlaton.js';
 
 type MRunFunction = (client: Aphlaton, message: Message, args: string[]) => Promise<any>;
-type IRunFunction = (client: Aphlaton, interaction: CommandInteraction) => Promise<any>;
+type IRunFunction = (client: Aphlaton, interaction: ChatInputCommandInteraction) => Promise<any>;
 
 
 export class AphlatonMessageCommandBuilder {
@@ -103,7 +103,7 @@ export class AphlatonMessageCommandBuilder {
 
 export class AphlatonSlashCommandBuilder {
     data: {
-        command: SlashCommandBuilder
+        command: SlashCommandBuilder | SlashCommandOptionsOnlyBuilder
         cooldown: number;
         category: string;
         botPerms: PermissionsString[];
@@ -126,7 +126,7 @@ export class AphlatonSlashCommandBuilder {
         }
     }
 
-    setCommand(command: SlashCommandBuilder): this {
+    setCommand(command: SlashCommandBuilder | SlashCommandOptionsOnlyBuilder): this {
         this.data.command = command;
         return this;
     }
