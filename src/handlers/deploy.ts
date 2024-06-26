@@ -4,6 +4,9 @@ import config from "../config.js";
 import Aphlaton from "../classes/Aphlaton.js";
 
 export default async (client: Aphlaton) => {
+    // check if the deploy is set to true
+    if (!config.handler.deploy) return
+
     // create instance from the REST class
     const rest = new REST({ version: "10" }).setToken(process.env.CLIENT_TOKEN || config.client.token);
 
