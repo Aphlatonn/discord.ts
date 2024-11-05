@@ -1,7 +1,7 @@
-import { PermissionsString, SlashCommandBuilder, Message, ChatInputCommandInteraction, SlashCommandOptionsOnlyBuilder } from 'discord.js';
+import { PermissionsString, SlashCommandBuilder, Message, ChatInputCommandInteraction, SlashCommandOptionsOnlyBuilder, TextChannel } from 'discord.js';
 import Aphlaton from './Aphlaton.js';
 
-type MRunFunction = (client: Aphlaton, message: Message, args: string[]) => Promise<any>;
+type MRunFunction = (client: Aphlaton, message: Message & { channel: TextChannel }, args: string[]) => Promise<any>;
 type IRunFunction = (client: Aphlaton, interaction: ChatInputCommandInteraction) => Promise<any>;
 
 

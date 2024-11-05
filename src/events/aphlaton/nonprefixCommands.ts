@@ -75,7 +75,7 @@ export default new AphlatonEventBuilder()
             return
         }
 
-        command.data.run(client, message, args).catch(error => {
+        command.data.run(client, message as any, args).catch(error => {
             log("An error occured while executing the command: " + commandInput, "err");
             console.log(error)
         })

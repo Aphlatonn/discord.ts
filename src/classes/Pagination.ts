@@ -5,15 +5,15 @@ import {
     EmbedBuilder,
     ButtonInteraction,
     User,
-    TextBasedChannel,
     MessageEditOptions,
+    TextChannel,
 } from "discord.js";
 
 type EndBehavior = 'disable' | 'remove' | 'edit' | 'none';
 
 export default class Pagination {
     data: {
-        channel: TextBasedChannel;
+        channel: TextChannel;
         embeds: EmbedBuilder[];
         user: User;
         currentPage: number;
@@ -24,7 +24,7 @@ export default class Pagination {
         cycle: boolean;
     };
 
-    constructor(channel: TextBasedChannel, embeds: EmbedBuilder[], user: User) {
+    constructor(channel: TextChannel, embeds: EmbedBuilder[], user: User) {
         this.data = {
             channel,
             embeds,

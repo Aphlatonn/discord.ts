@@ -22,15 +22,15 @@
     "url": "https://github.com/Aphlatonn/discord.ts/issues"
   },
   "dependencies": {
-    "better-sqlite3": "^10.0.0",
+    "better-sqlite3": "^11.5.0",
     "chalk": "^5.3.0",
-    "discord.js": "^14.15.2",
+    "discord.js": "^14.16.3",
     "dotenv": "^16.4.5"
   },
   "devDependencies": {
     "@types/node": "^20.12.12",
     "nodemon": "^3.1.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.6.3"
   }
 }
